@@ -161,7 +161,7 @@ def main():
 if authentication_status:
     # Главная часть приложения Streamlit
     st.sidebar.title("Выбор организации")
-
+    authenticator.logout("Выход", "sidebar")
     if username == "mobicenter":
         mobi_center(client)
     elif username == "babolo":
