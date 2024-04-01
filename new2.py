@@ -42,7 +42,7 @@ def append_to_google_sheets(client, date, organization, data):
     # Создаем словарь, сопоставляющий название организации с индексами столбцов
     org_columns = {
         "MobiCenter": ["Касса", "Капиталбанк"],
-        "BABOLO-TAXI": ["Имон"],
+        "BABOLO-TAXI": ["Касса", "Имон"],
         "KREDITMARKET": ["Касса", "Арванд", "ДС", "Сандук"],
         "OBBO": ["Касса", "ДС", "Алиф"]
     }
