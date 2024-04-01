@@ -7,7 +7,7 @@ import plotly.express as px
 import pickle
 from pathlib import Path
 import streamlit_authenticator as stauth
-
+from st_files_connection import FilesConnection
 names = ["MobiCenter", "BABOLO-TAXI", "KREDITMARKET", "OBBO", "Dashboard"]
 usernames = ["mobicenter", "babolo", "kreditmarket", "obbo", "admin"]
 
@@ -27,11 +27,15 @@ if authentication_status == False:
 if authentication_status == None:
     st.warning("Please enter your username and password")
 
+headers = {
+    "authorization": st.secrets["auth_key"],
+    "content-type": "application/json"
+}
 
 # Функция для авторизации в Google Sheets
 def authorize_google_sheets():
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('credits_mobi.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name(headers, scope)
     client = gspread.authorize(creds)
     return client
 # Функция для записи данных в Google Sheets
