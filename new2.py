@@ -71,11 +71,12 @@ def mobi_center(client):
 
 def babolo_taxi(client):
     st.write("# Выбрана организация BABOLO-TAXI")
+    kassa = st.text_input("Касса")
     imon = st.text_input("Имон")
     if st.button("Ввод"):
         now = datetime.now()
         date = now.strftime("%Y-%m-%d %H:%M:%S")
-        append_to_google_sheets(client, date, "BABOLO-TAXI", [imon])
+        append_to_google_sheets(client, date, "BABOLO-TAXI", [imon, kassa])
 
 def kreditmarket(client):
     st.write("# Выбрана организация KREDITMARKET")
