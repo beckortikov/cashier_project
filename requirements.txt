@@ -4,5 +4,6 @@ pandas==1.5.3
 streamlit==1.29.0
 streamlit-authenticator==0.1.5
 oauth2client
+plotly
 # gcsfs
 # st-files-connection
