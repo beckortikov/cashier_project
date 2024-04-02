@@ -43,7 +43,7 @@ def append_to_google_sheets(client, date, organization, data):
     org_columns = {
         "MobiCenter": ["Касса", "Капиталбанк"],
         "BABOLO-TAXI": ["Касса", "Имон"],
-        "KREDITMARKET": ["Касса", "Арванд", "ДС", "ЭСХАТА"],
+        "KREDITMARKET": ["Касса", "Арванд", "ЭСХАТА"],
         "OBBO": ["Касса", "ДС", "Алиф"]
     }
 
