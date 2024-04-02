@@ -35,9 +35,9 @@ def authorize_google_sheets():
     client = gspread.authorize(creds)
     return client
 # Функция для записи данных в Google Sheets
-def append_to_google_sheets(client, date, organization, data):
+def append_to_google_sheets(client, input_date, date, organization, data):
     sheet = client.open("Kassa").sheet1
-    column_names = ["Дата введения", "Организация", "Касса", "Капиталбанк", "Арванд", "ДС", "ЭСХАТА", "Алиф", "Имон"]
+    column_names = ["Дата ввода", "Дата введения", "Организация", "Касса", "Капиталбанк", "Арванд", "ДС", "ЭСХАТА", "Алиф", "Имон"]
 
     # Создаем словарь, сопоставляющий название организации с индексами столбцов
     org_columns = {
@@ -50,7 +50,7 @@ def append_to_google_sheets(client, date, organization, data):
     if not sheet.row_values(1):
         sheet.append_row(column_names)
 
-    row = [date, organization] + [""] * (len(column_names) - 2)
+    row = [input_date, date, organization] + [""] * (len(column_names) - 3)
     org_column_indices = [column_names.index(col) for col in org_columns[organization]]
     for i, idx in enumerate(org_column_indices):
         if i < len(data):
@@ -62,41 +62,49 @@ def append_to_google_sheets(client, date, organization, data):
 # Создание функций для каждой организации
 def mobi_center(client):
     st.write("# Выбрана организация MobiCenter")
+    input_date = st.date_input("Выберите дату", value=datetime.today().date())
     kassa = st.text_input("Касса")
     kapitalbank = st.text_input("Капиталбанк")
     if st.button("Ввод"):
         now = datetime.now()
         date = now.strftime("%Y-%m-%d %H:%M:%S")
-        append_to_google_sheets(client, date, "MobiCenter", [kassa, kapitalbank])
+        input_date = input_date.strftime("%Y-%m-%d")
+        append_to_google_sheets(client, input_date, date, "MobiCenter", [kassa, kapitalbank])
 
 def babolo_taxi(client):
     st.write("# Выбрана организация BABOLO-TAXI")
+    input_date = st.date_input("Выберите дату", value=datetime.today().date())
     kassa = st.text_input("Касса")
     imon = st.text_input("Имон")
     if st.button("Ввод"):
         now = datetime.now()
         date = now.strftime("%Y-%m-%d %H:%M:%S")
-        append_to_google_sheets(client, date, "BABOLO-TAXI", [imon, kassa])
+        input_date = input_date.strftime("%Y-%m-%d")
+        append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [imon, kassa])
 
 def kreditmarket(client):
     st.write("# Выбрана организация KREDITMARKET")
+    input_date = st.date_input("Выберите дату", value=datetime.today().date())
     kassa = st.text_input("Касса")
     arvand = st.text_input("Арванд")
     eskhata = st.text_input("ЭСХАТА")
     if st.button("Ввод"):
         now = datetime.now()
         date = now.strftime("%Y-%m-%d %H:%M:%S")
-        append_to_google_sheets(client, date, "KREDITMARKET", [kassa, arvand, eskhata])
+        input_date = input_date.strftime("%Y-%m-%d")
+        append_to_google_sheets(client, input_date, date, "KREDITMARKET", [kassa, arvand, eskhata])
 
 def obbo(client):
     st.write("# Выбрана организация OBBO")
+    input_date = st.date_input("Выберите дату", value=datetime.today().date())
     kassa = st.text_input("Касса")
     ds = st.text_input("ДС")
     alif = st.text_input("Алиф")
     if st.button("Ввод"):
         now = datetime.now()
         date = now.strftime("%Y-%m-%d %H:%M:%S")
-        append_to_google_sheets(client, date, "OBBO", [kassa, ds, alif])
+        input_date = input_date.strftime("%Y-%m-%d")
+        append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif])
 
 # Авторизация в Google Sheets
 client = authorize_google_sheets()
@@ -106,7 +114,7 @@ def load_data():
     client = authorize_google_sheets()
     sheet = client.open("Kassa").sheet1
     data = pd.DataFrame(sheet.get_all_records())
-    data['Дата введения'] = pd.to_datetime(data['Дата введения'])
+    data['Дата ввода'] = pd.to_datetime(data['Дата ввода'])
     return data
 
 # Функция для создания дашборда
@@ -114,13 +122,13 @@ def load_data():
 def create_chart(data, organization, chart_type):
     filtered_data = data[data['Организация'] == organization]
     if chart_type == 'Недельный':
-        chart_data = filtered_data.resample('W-Mon', on='Дата введения').sum().reset_index()
+        chart_data = filtered_data.resample('W-Mon', on='Дата ввода').sum().reset_index()
         chart_title = f'Недельные значения для {organization}'
     else:
-        chart_data = filtered_data.resample('M', on='Дата введения').sum().reset_index()
+        chart_data = filtered_data.resample('M', on='Дата ввода').sum().reset_index()
         chart_title = f'Месячные значения для {organization}'
 
-    fig = px.line(chart_data, x='Дата введения', y='Касса', title=chart_title, labels={'Касса': 'Сумма'})
+    fig = px.line(chart_data, x='Дата ввода', y='Касса', title=chart_title, labels={'Касса': 'Сумма'})
     return fig
 
 # Функция для создания дашборда
@@ -132,8 +140,8 @@ def main():
     st.write("## Дневные значения")
 
     # Выбор даты
-    min_date = data['Дата введения'].min().date()
-    max_date = data['Дата введения'].max().date()
+    min_date = data['Дата ввода'].min().date()
+    max_date = data['Дата ввода'].max().date()
     selected_date = st.date_input("Выберите дату", min_value=min_date, max_value=max_date, value=min_date)
 
     # Выбор организации
@@ -141,14 +149,14 @@ def main():
     selected_org = st.selectbox("Выберите организацию", organizations)
 
     # Фильтрация данных по выбранной дате и организации
-    filtered_data = data[(data['Дата введения'].dt.date == selected_date)]
+    filtered_data = data[(data['Дата ввода'].dt.date == selected_date)]
 
     filtered_data = filtered_data.dropna(axis=1)
     # Отображение отфильтрованных данных
     st.write(filtered_data)
 
     # Преобразование даты в формат datetime
-    data['Дата введения'] = pd.to_datetime(data['Дата введения'])
+    data['Дата ввода'] = pd.to_datetime(data['Дата ввода'])
 
     # Выбор типа графика
     chart_type = st.radio("Выберите тип графика", ["Недельный", "Месячный"])
