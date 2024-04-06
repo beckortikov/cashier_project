@@ -37,14 +37,14 @@ def authorize_google_sheets():
 # Функция для записи данных в Google Sheets
 def append_to_google_sheets(client, input_date, date, organization, data):
     sheet = client.open("Kassa").sheet1
-    column_names = ["Дата ввода", "Дата введения", "Организация", "Касса", "Капиталбанк", "Арванд", "ДС", "ЭСХАТА", "Алиф", "Имон"]
+    column_names = ["Дата ввода", "Дата введения", "Организация", "Касса", "Капиталбанк", "Арванд", "ДС", "ЭСХАТА", "Алиф", "Имон", "ДС_КОШ"]
 
     # Создаем словарь, сопоставляющий название организации с индексами столбцов
     org_columns = {
         "MobiCenter": ["Касса", "Капиталбанк"],
         "BABOLO-TAXI": ["Касса", "Имон"],
         "KREDITMARKET": ["Касса", "Арванд", "ЭСХАТА"],
-        "OBBO": ["Касса", "ДС", "Алиф"]
+        "OBBO": ["Касса", "ДС", "Алиф", "Арванд", "Имон", "ДС_КОШ"]
     }
 
     if not sheet.row_values(1):
@@ -124,9 +124,15 @@ def obbo(client):
     input1 = st.empty()
     input2 = st.empty()
     input3 = st.empty()
+    input4 = st.empty()
+    input5 = st.empty()
+    input6 = st.empty()
     kassa = input1.text_input("Касса", key="kassa")
     ds = input2.text_input("ДС", key="ds")
     alif = input3.text_input("Алиф", key="alif")
+    arvand = input4.text_input("Арванд", key="arvand")
+    imon = input5.text_input("Имон", key="imon")
+    dc_cash = input6.text_input("ДС_КОШ", key="dc_cash")
     if st.button("Ввод"):
         if kassa.strip() == "" or ds.strip() == "" or alif.strip() == "" :
             st.error("Пожалуйста, заполните все поля")
@@ -134,10 +140,13 @@ def obbo(client):
             now = datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
-            append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif])
+            append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif, arvand, imon, dc_cash])
             input1.text_input("Касса", key="kassa1")
             input2.text_input("ДС", key="ds1")
             input3.text_input("Алиф", key="alif1")
+            input4.text_input("Арванд", key="arvand1")
+            input5.text_input("Имон", key="imon1")
+            input6.text_input("ДС_КОШ", key="dc_cash1")
 
 # Авторизация в Google Sheets
 client = authorize_google_sheets()
