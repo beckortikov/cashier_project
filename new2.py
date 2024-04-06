@@ -68,12 +68,15 @@ def mobi_center(client):
     kassa = input1.text_input("Касса", key="kassa")
     kapitalbank = input2.text_input("Капиталбанк", key="kapitalbank")
     if st.button("Ввод"):
-        now = datetime.now()
-        date = now.strftime("%Y-%m-%d %H:%M:%S")
-        input_date = input_date.strftime("%Y-%m-%d")
-        append_to_google_sheets(client, input_date, date, "MobiCenter", [kassa, kapitalbank])
-        input1.text_input("Касса", key="kassa1")
-        input2.text_input("Капиталбанк", key="kapitalbank1")
+        if kassa.strip() == "" or kapitalbank.strip() == "":
+            st.error("Пожалуйста, заполните все поля")
+        else:
+            now = datetime.now()
+            date = now.strftime("%Y-%m-%d %H:%M:%S")
+            input_date = input_date.strftime("%Y-%m-%d")
+            append_to_google_sheets(client, input_date, date, "MobiCenter", [kassa, kapitalbank])
+            input1.text_input("Касса", key="kassa1")
+            input2.text_input("Капиталбанк", key="kapitalbank1")
 
 
 def babolo_taxi(client):
@@ -84,12 +87,15 @@ def babolo_taxi(client):
     kassa = input1.text_input("Касса", key="kassa")
     imon = input2.text_input("Имон", key="imon")
     if st.button("Ввод"):
-        now = datetime.now()
-        date = now.strftime("%Y-%m-%d %H:%M:%S")
-        input_date = input_date.strftime("%Y-%m-%d")
-        append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [imon, kassa])
-        input1.text_input("Касса", key="kassa1")
-        input2.text_input("Имон", key="imon1")
+        if kassa.strip() == "" or imon.strip() == "":
+            st.error("Пожалуйста, заполните все поля")
+        else:
+            now = datetime.now()
+            date = now.strftime("%Y-%m-%d %H:%M:%S")
+            input_date = input_date.strftime("%Y-%m-%d")
+            append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [imon, kassa])
+            input1.text_input("Касса", key="kassa1")
+            input2.text_input("Имон", key="imon1")
 
 def kreditmarket(client):
     st.write("# Выбрана организация KREDITMARKET")
@@ -101,13 +107,16 @@ def kreditmarket(client):
     arvand = input2.text_input("Арванд", key="arvand")
     eskhata = input3.text_input("ЭСХАТА", key="eskhata")
     if st.button("Ввод"):
-        now = datetime.now()
-        date = now.strftime("%Y-%m-%d %H:%M:%S")
-        input_date = input_date.strftime("%Y-%m-%d")
-        append_to_google_sheets(client, input_date, date, "KREDITMARKET", [kassa, arvand, eskhata])
-        input1.text_input("Касса", key="kassa1")
-        input2.text_input("Арванд", key="arvand1")
-        input3.text_input("ЭСХАТА", key="eskhata1")
+        if kassa.strip() == "" or arvand.strip() == "" or eskhata.strip() == "" :
+            st.error("Пожалуйста, заполните все поля")
+        else:
+            now = datetime.now()
+            date = now.strftime("%Y-%m-%d %H:%M:%S")
+            input_date = input_date.strftime("%Y-%m-%d")
+            append_to_google_sheets(client, input_date, date, "KREDITMARKET", [kassa, arvand, eskhata])
+            input1.text_input("Касса", key="kassa1")
+            input2.text_input("Арванд", key="arvand1")
+            input3.text_input("ЭСХАТА", key="eskhata1")
 
 def obbo(client):
     st.write("# Выбрана организация OBBO")
@@ -119,13 +128,16 @@ def obbo(client):
     ds = input2.text_input("ДС", key="ds")
     alif = input3.text_input("Алиф", key="alif")
     if st.button("Ввод"):
-        now = datetime.now()
-        date = now.strftime("%Y-%m-%d %H:%M:%S")
-        input_date = input_date.strftime("%Y-%m-%d")
-        append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif])
-        input1.text_input("Касса", key="kassa1")
-        input2.text_input("ДС", key="ds1")
-        input3.text_input("Алиф", key="alif1")
+        if kassa.strip() == "" or ds.strip() == "" or alif.strip() == "" :
+            st.error("Пожалуйста, заполните все поля")
+        else:
+            now = datetime.now()
+            date = now.strftime("%Y-%m-%d %H:%M:%S")
+            input_date = input_date.strftime("%Y-%m-%d")
+            append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif])
+            input1.text_input("Касса", key="kassa1")
+            input2.text_input("ДС", key="ds1")
+            input3.text_input("Алиф", key="alif1")
 
 # Авторизация в Google Sheets
 client = authorize_google_sheets()
