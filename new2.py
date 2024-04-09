@@ -93,7 +93,7 @@ def babolo_taxi(client):
             now = datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
-            append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [imon, kassa])
+            append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [kassa, imon])
             input1.text_input("Касса", key="kassa1")
             input2.text_input("Имон", key="imon1")
 
