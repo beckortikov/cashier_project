@@ -65,8 +65,8 @@ def mobi_center(client):
     input_date = st.date_input("Выберите дату", value=datetime.today().date())
     input1 = st.empty()
     input2 = st.empty()
-    kassa = input1.text_input("Касса", key="kassa")
-    kapitalbank = input2.text_input("Капиталбанк", key="kapitalbank")
+    kassa = input1.number_input("Касса", key="kassa")
+    kapitalbank = input2.number_input("Капиталбанк", key="kapitalbank")
     if st.button("Ввод"):
         if kassa.strip() == "" or kapitalbank.strip() == "":
             st.error("Пожалуйста, заполните все поля")
@@ -75,8 +75,8 @@ def mobi_center(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "MobiCenter", [kassa, kapitalbank])
-            input1.text_input("Касса", key="kassa1")
-            input2.text_input("Капиталбанк", key="kapitalbank1")
+            input1.number_input("Касса", key="kassa1")
+            input2.number_input("Капиталбанк", key="kapitalbank1")
 
 
 def babolo_taxi(client):
@@ -84,8 +84,8 @@ def babolo_taxi(client):
     input_date = st.date_input("Выберите дату", value=datetime.today().date())
     input1 = st.empty()
     input2 = st.empty()
-    kassa = input1.text_input("Касса", key="kassa")
-    imon = input2.text_input("Имон", key="imon")
+    kassa = input1.number_input("Касса", key="kassa")
+    imon = input2.number_input("Имон", key="imon")
     if st.button("Ввод"):
         if kassa.strip() == "" or imon.strip() == "":
             st.error("Пожалуйста, заполните все поля")
@@ -94,8 +94,8 @@ def babolo_taxi(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [kassa, imon])
-            input1.text_input("Касса", key="kassa1")
-            input2.text_input("Имон", key="imon1")
+            input1.number_input("Касса", key="kassa1")
+            input2.number_input("Имон", key="imon1")
 
 def kreditmarket(client):
     st.write("# Выбрана организация KREDITMARKET")
@@ -103,9 +103,9 @@ def kreditmarket(client):
     input1 = st.empty()
     input2 = st.empty()
     input3 = st.empty()
-    kassa = input1.text_input("Касса", key="kassa")
-    arvand = input2.text_input("Арванд", key="arvand")
-    eskhata = input3.text_input("ЭСХАТА", key="eskhata")
+    kassa = input1.number_input("Касса", key="kassa")
+    arvand = input2.number_input("Арванд", key="arvand")
+    eskhata = input3.number_input("ЭСХАТА", key="eskhata")
     if st.button("Ввод"):
         if kassa.strip() == "" or arvand.strip() == "" or eskhata.strip() == "" :
             st.error("Пожалуйста, заполните все поля")
@@ -114,9 +114,9 @@ def kreditmarket(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "KREDITMARKET", [kassa, arvand, eskhata])
-            input1.text_input("Касса", key="kassa1")
-            input2.text_input("Арванд", key="arvand1")
-            input3.text_input("ЭСХАТА", key="eskhata1")
+            input1.number_input("Касса", key="kassa1")
+            input2.number_input("Арванд", key="arvand1")
+            input3.number_input("ЭСХАТА", key="eskhata1")
 
 def obbo(client):
     st.write("# Выбрана организация OBBO")
@@ -127,12 +127,12 @@ def obbo(client):
     input4 = st.empty()
     input5 = st.empty()
     input6 = st.empty()
-    kassa = input1.text_input("Касса", key="kassa")
-    ds = input2.text_input("ДС", key="ds")
-    alif = input3.text_input("Алиф", key="alif")
-    arvand = input4.text_input("Арванд", key="arvand")
-    imon = input5.text_input("Имон", key="imon")
-    dc_cash = input6.text_input("ДС_КОШ", key="dc_cash")
+    kassa = input1.number_input("Касса", key="kassa")
+    ds = input2.number_input("ДС", key="ds")
+    alif = input3.number_input("Алиф", key="alif")
+    arvand = input4.number_input("Арванд", key="arvand")
+    imon = input5.number_input("Имон", key="imon")
+    dc_cash = input6.number_input("ДС_КОШ", key="dc_cash")
     if st.button("Ввод"):
         if kassa.strip() == "" or ds.strip() == "" or alif.strip() == "" :
             st.error("Пожалуйста, заполните все поля")
@@ -141,12 +141,12 @@ def obbo(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif, arvand, imon, dc_cash])
-            input1.text_input("Касса", key="kassa1")
-            input2.text_input("ДС", key="ds1")
-            input3.text_input("Алиф", key="alif1")
-            input4.text_input("Арванд", key="arvand1")
-            input5.text_input("Имон", key="imon1")
-            input6.text_input("ДС_КОШ", key="dc_cash1")
+            input1.number_input("Касса", key="kassa1")
+            input2.number_input("ДС", key="ds1")
+            input3.number_input("Алиф", key="alif1")
+            input4.number_input("Арванд", key="arvand1")
+            input5.number_input("Имон", key="imon1")
+            input6.number_input("ДС_КОШ", key="dc_cash1")
 
 # Авторизация в Google Sheets
 client = authorize_google_sheets()
