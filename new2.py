@@ -68,7 +68,7 @@ def mobi_center(client):
     kassa = input1.number_input("Касса", key="kassa")
     kapitalbank = input2.number_input("Капиталбанк", key="kapitalbank")
     if st.button("Ввод"):
-        if kassa.strip() == "" or kapitalbank.strip() == "":
+        if kassa.strip() == 0 or kapitalbank.strip() == 0:
             st.error("Пожалуйста, заполните все поля")
         else:
             now = datetime.now()
@@ -87,7 +87,7 @@ def babolo_taxi(client):
     kassa = input1.number_input("Касса", key="kassa")
     imon = input2.number_input("Имон", key="imon")
     if st.button("Ввод"):
-        if kassa.strip() == "" or imon.strip() == "":
+        if kassa.strip() == 0 or imon.strip() == 0:
             st.error("Пожалуйста, заполните все поля")
         else:
             now = datetime.now()
@@ -107,7 +107,7 @@ def kreditmarket(client):
     arvand = input2.number_input("Арванд", key="arvand")
     eskhata = input3.number_input("ЭСХАТА", key="eskhata")
     if st.button("Ввод"):
-        if kassa.strip() == "" or arvand.strip() == "" or eskhata.strip() == "" :
+        if kassa.strip() == 0 or arvand.strip() == 0 or eskhata.strip() ==0 :
             st.error("Пожалуйста, заполните все поля")
         else:
             now = datetime.now()
@@ -134,7 +134,7 @@ def obbo(client):
     imon = input5.number_input("Имон", key="imon")
     dc_cash = input6.number_input("ДС_КОШ", key="dc_cash")
     if st.button("Ввод"):
-        if kassa.strip() == "" or ds.strip() == "" or alif.strip() == "" :
+        if kassa.strip() == 0 or ds.strip() == "" or alif.strip() == 0 :
             st.error("Пожалуйста, заполните все поля")
         else:
             now = datetime.now()
