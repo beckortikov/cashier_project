@@ -134,7 +134,7 @@ def obbo(client):
     imon = input5.number_input("Имон", key="imon")
     dc_cash = input6.number_input("ДС_КОШ", key="dc_cash")
     if st.button("Ввод"):
-        if kassa.strip() == 0 or ds.strip() == "" or alif.strip() == 0 :
+        if kassa.strip() == 0 or ds.strip() == 0 or alif.strip() == 0 :
             st.error("Пожалуйста, заполните все поля")
         else:
             now = datetime.now()
