@@ -161,6 +161,7 @@ def load_data():
     sheet = client.open("Kassa").sheet1
     data = pd.DataFrame(sheet.get_all_records())
     data['Дата ввода'] = pd.to_datetime(data['Дата ввода'])
+    data.iloc[:, 3:] = data.iloc[:, 3:].replace(regex={',': '.', "": 0})
     return data
 
 # Функция для создания дашборда
