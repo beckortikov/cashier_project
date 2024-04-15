@@ -75,6 +75,7 @@ def mobi_center(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "MobiCenter", [kassa, kapitalbank])
+            st.success("Успешно заполнено")
             input1.number_input("Касса", key="kassa1")
             input2.number_input("Капиталбанк", key="kapitalbank1")
 
@@ -94,6 +95,7 @@ def babolo_taxi(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "BABOLO-TAXI", [kassa, imon])
+            st.success("Успешно заполнено")
             input1.number_input("Касса", key="kassa1")
             input2.number_input("Имон", key="imon1")
 
@@ -114,6 +116,7 @@ def kreditmarket(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "KREDITMARKET", [kassa, arvand, eskhata])
+            st.success("Успешно заполнено")
             input1.number_input("Касса", key="kassa1")
             input2.number_input("Арванд", key="arvand1")
             input3.number_input("ЭСХАТА", key="eskhata1")
@@ -141,6 +144,7 @@ def obbo(client):
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             append_to_google_sheets(client, input_date, date, "OBBO", [kassa, ds, alif, arvand, imon, dc_cash])
+            st.success("Успешно заполнено")
             input1.number_input("Касса", key="kassa1")
             input2.number_input("ДС", key="ds1")
             input3.number_input("Алиф", key="alif1")
