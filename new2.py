@@ -181,36 +181,63 @@ def create_chart(data, organization, chart_type):
 def main():
     # Загрузка данных
     data = load_data()
-
-    # Отображение дневных значений
-    st.write("## Дневные значения")
-
     # Выбор даты
     min_date = data['Дата ввода'].min().date()
     max_date = data['Дата ввода'].max().date()
-    selected_date = st.date_input("Выберите дату", min_value=min_date, max_value=max_date, value=min_date)
+    selected_date = st.sidebar.date_input("Выберите дату", min_value=min_date, max_value=max_date, value=min_date)
 
     # Выбор организации
-    organizations = data['Организация'].unique()
-    selected_org = st.selectbox("Выберите организацию", organizations)
+    # organizations = data['Организация'].unique()
+    # selected_org = st.selectbox("Выберите организацию", organizations)
 
     # Фильтрация данных по выбранной дате и организации
     filtered_data = data[(data['Дата ввода'].dt.date == selected_date)]
 
     filtered_data = filtered_data.dropna(axis=1)
     # Отображение отфильтрованных данных
-    st.write(filtered_data)
+    total_metrics = {}
+    for org in filtered_data['Организация'].unique():
+        org_data = filtered_data[filtered_data['Организация'] == org]
+        total_metrics[org] = {
+            "Касса": org_data['Касса'].sum(),
+            "Капиталбанк": org_data['Капиталбанк'].sum(),
+            "Арванд": org_data['Арванд'].sum(),
+            "ЭСХАТА": org_data['ЭСХАТА'].sum(),
+            "Имон": org_data['Имон'].sum(),
+            "ДС": org_data['ДС'].sum(),
+            "Алиф": org_data['Алиф'].sum(),
+            "ДС_КОШ": org_data['ДС_КОШ'].sum(),
+        }
 
-    # Преобразование даты в формат datetime
-    data['Дата ввода'] = pd.to_datetime(data['Дата ввода'])
-
-    # Выбор типа графика
-    chart_type = st.radio("Выберите тип графика", ["Недельный", "Месячный"])
-
-    # Отображение графика только для выбранной организации
-    st.write("## График")
-    fig = create_chart(data, selected_org, chart_type)
-    st.plotly_chart(fig)
+    # Отображение сумм метрик для каждой организации
+    st.write("### Сумма метрик на выбранную дату для каждой организации:")
+    for org, metrics in total_metrics.items():
+        st.write(f"#### {org}")
+        row_metrics = []
+        total_value = 0.0
+        for metric, value in metrics.items():
+            if isinstance(value, str):
+                try:
+                    value = float(value)  # Convert value to float
+                except ValueError:
+                    import re
+                    number_str_cleaned = re.sub(r'[^\d.]', '', value)
+                    value = float(number_str_cleaned)  # Skip if value cannot be converted to float
+            if isinstance(value, float):
+                row_metrics.append((metric, '{:,.2f}'.format(value)))
+                total_value += value
+        row_metrics.append(("Total", '{:,.2f}'.format(total_value)))
+        num_metrics = len(row_metrics)
+        num_cols = 3
+        num_rows = (num_metrics + num_cols - 1) // num_cols
+        for i in range(num_rows):
+            cols = st.columns(num_cols)
+            for j in range(num_cols):
+                idx = i * num_cols + j
+                if idx < num_metrics:
+                    metric, value = row_metrics[idx]
+                    with cols[j]:
+                        st.metric(label=metric, value=value)
 
 # В зависимости от выбранной организации вызываем соответствующую функцию
 if authentication_status:
