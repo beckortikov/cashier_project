@@ -227,7 +227,7 @@ def main():
             if isinstance(value, float):
                 row_metrics.append((metric, '{:,.2f}'.format(value)))
                 total_value += value
-        row_metrics.append(("Total", '{:,.2f}'.format(total_value)))
+        row_metrics.append(("Итого", '{:,.2f}'.format(total_value)))
         num_metrics = len(row_metrics)
         num_cols = 3
         num_rows = (num_metrics + num_cols - 1) // num_cols
