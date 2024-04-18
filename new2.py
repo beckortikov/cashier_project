@@ -1,7 +1,7 @@
 import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from datetime import datetime, astimezone
+from datetime import datetime, timezone
 import pandas as pd
 import plotly.express as px
 import pickle
