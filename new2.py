@@ -1,7 +1,7 @@
 import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from datetime import datetime
+from datetime import datetime, astimezone
 import pandas as pd
 import plotly.express as px
 import pickle
@@ -112,7 +112,7 @@ def kreditmarket(client):
         if kassa == "" or arvand == "" or eskhata =="" :
             st.error("Пожалуйста, заполните все поля")
         else:
-            now = datetime.now()
+            now = datetime.now().astimezone()
             date = now.strftime("%Y-%m-%d %H:%M:%S")
             input_date = input_date.strftime("%Y-%m-%d")
             st.success("Успешно заполнено")
