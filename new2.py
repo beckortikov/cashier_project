@@ -30,9 +30,8 @@ if authentication_status == None:
 
 # Функция для авторизации в Google Sheets
 def authorize_google_sheets():
-    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('credits_mobi.json', scope)
-    client = gspread.authorize(creds)
+
+    client = gspread.service_account(filename='credits_mobi.json')
     return client
 # Функция для записи данных в Google Sheets
 def append_to_google_sheets(client, input_date, date, organization, data):
