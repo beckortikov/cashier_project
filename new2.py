@@ -62,6 +62,10 @@ def append_to_google_sheets(client, input_date, date, organization, data):
 # Создание функций для каждой организации
 def mobi_center(client):
     st.write("# Выбрана организация MobiCenter")
+    data = load_data()
+
+    lst_date = data[data["Организация"] == "MobiCenter"]["Дата ввода"].max()
+    st.write(f"#### Последняя дата ввода: {lst_date.strftime('%d-%m-%Y')}")
     input_date = st.date_input("Выберите дату", value=datetime.today().date())
     input1 = st.empty()
     input2 = st.empty()
@@ -82,6 +86,10 @@ def mobi_center(client):
 
 def babolo_taxi(client):
     st.write("# Выбрана организация BABOLO-TAXI")
+    data = load_data()
+
+    lst_date = data[data["Организация"] == "BABOLO-TAXI"]["Дата ввода"].max()
+    st.write(f"#### Последняя дата ввода: {lst_date.strftime('%d-%m-%Y')}")
     input_date = st.date_input("Выберите дату", value=datetime.today().date())
     input1 = st.empty()
     input2 = st.empty()
@@ -101,6 +109,10 @@ def babolo_taxi(client):
 
 def kreditmarket(client):
     st.write("# Выбрана организация KREDITMARKET")
+    data = load_data()
+
+    lst_date = data[data["Организация"] == "KREDITMARKET"]["Дата ввода"].max()
+    st.write(f"#### Последняя дата ввода: {lst_date.strftime('%d-%m-%Y')}")
     input_date = st.date_input("Выберите дату", value=datetime.today().date())
     input1 = st.empty()
     input2 = st.empty()
@@ -123,6 +135,10 @@ def kreditmarket(client):
 
 def obbo(client):
     st.write("# Выбрана организация OBBO")
+    data = load_data()
+
+    lst_date = data[data["Организация"] == "OBBO"]["Дата ввода"].max()
+    st.write(f"#### Последняя дата ввода: {lst_date.strftime('%d-%m-%Y')}")
     input_date = st.date_input("Выберите дату", value=datetime.today().date())
     input1 = st.empty()
     input2 = st.empty()
@@ -255,4 +271,3 @@ if authentication_status:
         obbo(client)
     elif username == "admin":
         main()
-
